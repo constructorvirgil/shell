@@ -19,3 +19,13 @@ function adjustFile {
     fi
     echo "file no change"
 }
+
+#description: clear expired file
+#arg1: filepath
+#arg2: expire duration(days)
+function clearExpFile {
+    echo "arg1=$1"
+    echo "arg2=$2"
+    find $1 -type f -mtime +$2  -exec rm -rf {} \; || return
+    echo "clear expired file suc"
+}
