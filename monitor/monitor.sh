@@ -12,8 +12,9 @@ function adjustFile {
     echo "want_size=$want_size"
 
     if [[ $size -gt $2 ]]; then
-        tail -c $want_size $1 > /tmp/tmpfile || return
-        mv /tmp/tmpfile $1 || return
+        temp=$(mktemp)
+        tail -c $want_size $1 > ${temp} || return
+        mv ${temp} $1 || return
         echo "adjust file size to $want_size"
         return
     fi
